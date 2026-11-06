@@ -46,18 +46,18 @@ export function BookingsPage({ staff }: { staff: PublicStaff }) {
       {error && <ErrorBox message={error} onRetry={reload} />}
       {data && !rows.length && <Empty title="No bookings found" />}
       {rows.length > 0 && (
-        <div className="divide-y divide-line overflow-hidden rounded-2xl border border-line bg-white">
+        <div className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-white">
           {rows.map((b) => (
             <button key={b.id} onClick={() => setOpen(b.id)} className="flex w-full flex-wrap items-center gap-3 px-4 py-3 text-left hover:bg-paper">
               <div className="min-w-0 flex-1">
-                <div className="font-semibold text-ink">{b.payer.name}</div>
+                <div className="font-extrabold text-ink">{b.payer.name}</div>
                 <div className="truncate text-xs text-muted">
                   {CHANNEL_LABEL[b.channel]}
                   {b.platform ? ` · ${b.platform}` : ''} · {b.seats.length} seat{b.seats.length > 1 ? 's' : ''} · {formatDateTime(b.createdAt)} · {b.externalRef || b.id}
                 </div>
               </div>
               <PaymentBadge b={b} />
-              <div className="w-20 text-right font-semibold text-ink">{formatEUR(b.amount)}</div>
+              <div className="w-20 text-right font-extrabold text-ink">{formatEUR(b.amount)}</div>
             </button>
           ))}
         </div>

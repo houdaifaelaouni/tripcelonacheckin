@@ -33,8 +33,8 @@ export function PaymentsPage() {
         ))}
       </div>
       <Card className="mt-4">
-        <div className="flex items-center gap-2 font-semibold text-ink">
-          {settings.data!.emailConfigured ? <CheckCircle2 className="h-4 w-4 text-emerald-600" /> : <XCircle className="h-4 w-4 text-amber-500" />}
+        <div className="flex items-center gap-2 font-extrabold text-ink">
+          {settings.data!.emailConfigured ? <CheckCircle2 className="h-4 w-4 text-moss" /> : <XCircle className="h-4 w-4 text-gold" />}
           Ticket emails
         </div>
         <p className="mt-1 text-sm text-muted">
@@ -77,15 +77,15 @@ function SlotCard({ account, partner, onSaved }: { account: Account; partner?: P
 
   const Row = ({ ok, label }: { ok: boolean; label: string }) => (
     <div className="flex items-center gap-2 text-sm">
-      {ok ? <CheckCircle2 className="h-4 w-4 text-emerald-600" /> : <XCircle className="h-4 w-4 text-red-500" />}
-      <span className={ok ? 'text-ink' : 'text-red-700'}>{label}</span>
+      {ok ? <CheckCircle2 className="h-4 w-4 text-moss" /> : <XCircle className="h-4 w-4 text-alert-ink" />}
+      <span className={ok ? 'text-ink' : 'text-alert-ink'}>{label}</span>
     </div>
   );
 
   return (
     <Card>
       <div className="mb-3 flex items-center justify-between">
-        <div className="font-semibold text-ink">Booking link {account.slot}</div>
+        <div className="font-extrabold text-ink">Booking link {account.slot}</div>
         <Badge tone={account.mode === 'live' ? 'green' : account.mode === 'test' ? 'amber' : 'red'}>{account.mode === 'missing' ? 'Stripe not connected' : `Stripe ${account.mode} mode`}</Badge>
       </div>
       <Field label="Partner business">
@@ -116,7 +116,7 @@ function SlotCard({ account, partner, onSaved }: { account: Account; partner?: P
             <div className="flex items-center gap-2">
               <code className="flex-1 truncate rounded-lg bg-paper px-2 py-1 text-xs">{url}</code>
               <button onClick={() => copy(label, url)} className="text-muted hover:text-ink" aria-label={`Copy ${label}`}>
-                {copied === label ? <CheckCircle2 className="h-4 w-4 text-emerald-600" /> : <Copy className="h-4 w-4" />}
+                {copied === label ? <CheckCircle2 className="h-4 w-4 text-moss" /> : <Copy className="h-4 w-4" />}
               </button>
             </div>
           </div>

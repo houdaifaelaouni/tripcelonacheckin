@@ -29,21 +29,21 @@ export function SeatMap({
     const isTaken = takenSet.has(n) && !isSel;
     const full = !!max && selected.length >= max && !isSel;
     const cls = isSel
-      ? 'bg-brand text-white border-brand'
+      ? 'bg-accent text-ink border-moss'
       : label === 'boarded'
-        ? 'bg-emerald-500 text-white border-emerald-500'
+        ? 'bg-brand text-accent border-brand'
         : isTaken
-          ? 'bg-gray-200 text-gray-400 border-gray-200'
+          ? 'bg-line/60 text-muted/70 border-transparent'
           : full
-            ? 'bg-white text-gray-300 border-line'
-            : 'bg-white text-ink border-line hover:border-brand hover:text-brand';
+            ? 'bg-white text-line border-line'
+            : 'bg-white text-ink border-line hover:border-ink';
     return (
       <button
         key={n}
         type="button"
         disabled={!onToggle || isTaken || full}
         onClick={() => onToggle?.(n)}
-        className={`h-10 w-10 rounded-lg border text-sm font-semibold transition ${cls} disabled:cursor-default`}
+        className={`h-11 w-11 rounded-lg border-[1.5px] text-sm font-extrabold transition-colors ${cls} disabled:cursor-default`}
         aria-label={`Seat ${n}${isTaken ? ' (taken)' : ''}`}
       >
         {n}
@@ -52,8 +52,8 @@ export function SeatMap({
   };
 
   return (
-    <div className="inline-block rounded-3xl border border-line bg-paper p-4">
-      <div className="mb-3 flex items-center justify-between px-1 text-xs font-medium text-muted">
+    <div className="inline-block rounded-xl2 border-[1.5px] border-line bg-white p-5">
+      <div className="mb-4 flex items-center justify-between border-b border-dashed border-line px-1 pb-3 text-[13px] font-bold text-body">
         <span>Door</span>
         <span>Driver</span>
       </div>
@@ -66,11 +66,11 @@ export function SeatMap({
           </div>
         ))}
       </div>
-      <div className="mt-4 flex flex-wrap gap-3 text-xs text-muted">
+      <div className="mt-5 flex flex-wrap gap-4 text-[13px] text-body">
         <Legend cls="bg-white border-line" text="Free" />
-        <Legend cls="bg-brand border-brand" text="Selected" />
-        <Legend cls="bg-gray-200 border-gray-200" text="Taken" />
-        {labels && <Legend cls="bg-emerald-500 border-emerald-500" text="Boarded" />}
+        {onToggle && <Legend cls="bg-accent border-moss" text="Selected" />}
+        <Legend cls="bg-line/60 border-transparent" text="Taken" />
+        {labels && <Legend cls="bg-brand border-brand" text="Boarded" />}
       </div>
     </div>
   );
@@ -78,7 +78,7 @@ export function SeatMap({
 
 const Legend = ({ cls, text }: { cls: string; text: string }) => (
   <span className="inline-flex items-center gap-1.5">
-    <span className={`h-3 w-3 rounded border ${cls}`} />
+    <span className={`h-3.5 w-3.5 rounded border-[1.5px] ${cls}`} />
     {text}
   </span>
 );

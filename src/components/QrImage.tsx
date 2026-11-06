@@ -8,6 +8,6 @@ export function QrImage({ value, size = 220 }: { value: string; size?: number })
       .then(setSrc)
       .catch(() => setSrc(''));
   }, [value, size]);
-  if (!src) return <div style={{ width: size, height: size }} className="animate-pulse rounded-xl bg-paper" />;
-  return <img src={src} width={size} height={size} alt="Boarding pass QR code" className="rounded-xl" />;
+  if (!src) return <div style={{ width: size, height: size }} className="animate-pulse rounded-lg bg-paper" />;
+  return <img src={src} width={size} height={size} alt="Boarding pass QR code" className="rounded-md" />;
 }

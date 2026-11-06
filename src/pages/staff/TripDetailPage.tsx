@@ -87,7 +87,7 @@ export function TripDetailPage({ id, staff }: { id: string; staff: PublicStaff }
         actions={
           <>
             {can(staff.role, 'checkin.scan') && (
-              <Button onClick={() => navigate(`/app/scan?trip=${t.id}`)}>
+              <Button variant="accent" onClick={() => navigate(`/app/scan?trip=${t.id}`)}>
                 <ScanLine className="h-4 w-4" /> Board passengers
               </Button>
             )}
@@ -119,9 +119,9 @@ export function TripDetailPage({ id, staff }: { id: string; staff: PublicStaff }
               <Search className="absolute left-3 top-3 h-4 w-4 text-muted" />
               <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name, seat, reference…" className="pl-9" />
             </div>
-            <div className="inline-flex rounded-xl border border-line bg-white p-1">
+            <div className="inline-flex rounded-full border-[1.5px] border-line bg-white p-1">
               {(['list', 'seats'] as const).map((v) => (
-                <button key={v} onClick={() => setView(v)} className={`rounded-lg px-3 py-1.5 text-sm font-medium capitalize ${view === v ? 'bg-brand text-white' : 'text-muted'}`}>
+                <button key={v} onClick={() => setView(v)} className={`rounded-full px-4 py-1.5 text-sm font-bold ${view === v ? 'bg-brand text-paper' : 'text-body hover:text-ink'}`}>
                   {v === 'list' ? 'Passengers' : 'Seat map'}
                 </button>
               ))}
@@ -136,9 +136,9 @@ export function TripDetailPage({ id, staff }: { id: string; staff: PublicStaff }
           {view === 'seats' ? (
             <SeatMap capacity={t.capacity} taken={t.seatsTaken} selected={[]} labels={boardedSeats} />
           ) : (
-            <div className="overflow-x-auto rounded-2xl border border-line bg-white">
+            <div className="overflow-x-auto rounded-lg border border-line bg-white">
               <table className="w-full min-w-[640px] text-sm">
-                <thead className="border-b border-line text-left text-xs uppercase tracking-wide text-muted">
+                <thead className="border-b border-line bg-paper text-left text-[13px] font-bold text-body">
                   <tr>
                     <th className="px-4 py-3">Seat</th>
                     <th className="px-4 py-3">Passenger</th>
@@ -149,10 +149,10 @@ export function TripDetailPage({ id, staff }: { id: string; staff: PublicStaff }
                 </thead>
                 <tbody className="divide-y divide-line">
                   {rows.map(({ ticket, booking }) => (
-                    <tr key={ticket.id} className={ticket.status === 'checked_in' ? 'bg-emerald-50/40' : ''}>
-                      <td className="px-4 py-3 text-base font-bold text-ink">{ticket.seat}</td>
+                    <tr key={ticket.id} className={ticket.status === 'checked_in' ? 'bg-mint/50' : ''}>
+                      <td className="px-4 py-3 text-lg font-black text-ink">{ticket.seat}</td>
                       <td className="px-4 py-3">
-                        <div className="font-medium text-ink">{ticket.passengerName}</div>
+                        <div className="font-bold text-ink">{ticket.passengerName}</div>
                         {booking.payer.phone && <div className="text-xs text-muted">{booking.payer.phone}</div>}
                       </td>
                       <td className="px-4 py-3">

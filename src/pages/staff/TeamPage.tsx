@@ -85,10 +85,10 @@ export function TeamPage({ staff: me }: { staff: PublicStaff }) {
           return (
             <div key={role} className="mb-6">
               <div className="mb-2 flex items-baseline gap-2">
-                <h2 className="font-semibold text-ink">{ROLE_INFO[role].title}s</h2>
+                <h2 className="font-extrabold text-ink">{ROLE_INFO[role].title}s</h2>
                 <span className="text-xs text-muted">{ROLE_INFO[role].summary}</span>
               </div>
-              <div className="divide-y divide-line overflow-hidden rounded-2xl border border-line bg-white">
+              <div className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-white">
                 {people.map((s) => (
                   <div key={s.id} className={`flex flex-wrap items-center gap-3 px-4 py-3 ${s.active ? '' : 'opacity-60'}`}>
                     <div className="min-w-0 flex-1">
@@ -258,7 +258,7 @@ function KeyReveal({ issued, onClose }: { issued: IssuedKey; onClose: () => void
   return (
     <Modal title={`Access key for ${issued.name}`} onClose={onClose}>
       <div className="space-y-4">
-        <div className="rounded-xl bg-amber-50 p-3 text-sm text-amber-900">This is the only time the key is shown. Send it now; if it's lost, just issue a new one.</div>
+        <div className="rounded-lg bg-gold-soft px-4 py-3 text-sm font-medium text-[#5c3b00]">This is the only time the key is shown. Send it now; if it's lost, just issue a new one.</div>
         <Field label="Invite link (one tap sign-in)">
           <div className="flex gap-2">
             <Input readOnly value={issued.loginUrl} className="font-mono text-xs" />
@@ -276,7 +276,7 @@ function KeyReveal({ issued, onClose }: { issued: IssuedKey; onClose: () => void
           </div>
         </Field>
         <a href={wa} target="_blank" rel="noreferrer" className="block">
-          <Button variant="success" className="w-full">
+          <Button variant="share" className="w-full">
             <MessageCircle className="h-4 w-4" /> Send on WhatsApp
           </Button>
         </a>

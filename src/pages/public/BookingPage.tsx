@@ -30,7 +30,7 @@ export function BookingPage({ slot, search }: { slot: string; search: URLSearchP
   return (
     <PublicShell subtitle={data?.partnerName}>
       {cancelled && (
-        <div className="mb-4 rounded-xl bg-amber-50 p-3 text-sm text-amber-900">Payment was not completed, so your seats were released. You can book again below.</div>
+        <div className="mb-4 rounded-lg bg-gold-soft px-4 py-3 text-sm font-medium text-[#5c3b00]">Payment was not completed, so your seats were released. You can book again below.</div>
       )}
       {loading && <Spinner label="Loading trips" />}
       {error && <ErrorBox message={error} onRetry={reload} />}
@@ -53,17 +53,17 @@ function TripList({ trips, onPick }: { trips: PublicTrip[]; onPick: (id: string)
   if (!trips.length) return <Empty title="No trips on sale right now">New departures are added every week. Check back soon!</Empty>;
   return (
     <div>
-      <h1 className="mb-1 text-2xl font-bold text-ink">Choose your day trip</h1>
-      <p className="mb-6 text-sm text-muted">Pick a departure, choose your seats, and pay securely with Stripe.</p>
+      <h1 className="mb-1.5 text-[32px] font-black leading-tight text-ink">Choose your day trip</h1>
+      <p className="mb-6 text-[15px] text-body">Pick a departure, choose your seats and pay securely by card.</p>
       <div className="grid gap-3">
         {trips.map((t) => {
           const left = t.capacity - t.seatsTaken.length;
           return (
             <button key={t.id} onClick={() => left > 0 && onPick(t.id)} disabled={left <= 0} className="text-left">
-              <Card className={`transition ${left > 0 ? 'hover:border-brand hover:shadow-sm' : 'opacity-60'}`}>
+              <Card className={`transition ${left > 0 ? 'hover:border-ink' : 'opacity-60'}`}>
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
-                    <div className="text-lg font-bold text-ink">{t.name}</div>
+                    <div className="text-lg font-extrabold text-ink">{t.name}</div>
                     <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted">
                       <span className="inline-flex items-center gap-1.5">
                         <CalendarDays className="h-4 w-4" />
@@ -80,8 +80,8 @@ function TripList({ trips, onPick }: { trips: PublicTrip[]; onPick: (id: string)
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-xl font-bold text-brand">{formatEUR(t.price)}</div>
-                    <div className={`text-xs font-medium ${left <= 5 ? 'text-red-600' : 'text-muted'}`}>
+                    <div className="text-2xl font-black text-ink">{formatEUR(t.price)}</div>
+                    <div className={`mt-1 text-[13px] font-bold ${left <= 5 ? 'text-alert-ink' : 'text-body'}`}>
                       {left <= 0 ? 'Sold out' : `${left} seat${left === 1 ? '' : 's'} left`}
                     </div>
                   </div>
@@ -135,19 +135,19 @@ function Checkout({ slot, trip, onBack }: { slot: number; trip: PublicTrip; onBa
       <button type="button" onClick={onBack} className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-ink">
         <ArrowLeft className="h-4 w-4" /> All trips
       </button>
-      <h1 className="text-2xl font-bold text-ink">{trip.name}</h1>
-      <p className="mt-1 text-sm text-muted">
+      <h1 className="text-[32px] font-black leading-tight text-ink">{trip.name}</h1>
+      <p className="mt-1.5 text-[15px] text-body">
         {formatDate(trip.date, { weekday: 'long', day: 'numeric', month: 'long' })} · departure {trip.departureTime} · {trip.meetingPoint}
       </p>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[auto_1fr]">
         <div>
-          <h2 className="mb-2 font-semibold text-ink">1. Choose your seats</h2>
+          <h2 className="mb-3 text-lg font-extrabold text-ink">1. Choose your seats</h2>
           <SeatMap capacity={trip.capacity} taken={taken} selected={seats} onToggle={toggle} max={10} />
         </div>
 
         <div className="space-y-4">
-          <h2 className="font-semibold text-ink">2. Your details</h2>
+          <h2 className="text-lg font-extrabold text-ink">2. Your details</h2>
           <Field label="Full name">
             <Input required value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" />
           </Field>
@@ -159,7 +159,7 @@ function Checkout({ slot, trip, onBack }: { slot: number; trip: PublicTrip; onBa
           </Field>
           {seats.length > 1 && (
             <div className="space-y-2">
-              <span className="block text-sm font-medium text-ink">Other passengers (optional)</span>
+              <span className="block text-sm font-bold text-ink">Other passengers (optional)</span>
               {seats.slice(1).map((s, i) => (
                 <Input
                   key={s}
@@ -171,7 +171,7 @@ function Checkout({ slot, trip, onBack }: { slot: number; trip: PublicTrip; onBa
             </div>
           )}
 
-          <Card className="bg-paper">
+          <Card className="bg-mint/60 border-moss/30">
             <div className="flex items-center justify-between text-sm text-muted">
               <span className="inline-flex items-center gap-1.5">
                 <Users className="h-4 w-4" />
@@ -182,13 +182,13 @@ function Checkout({ slot, trip, onBack }: { slot: number; trip: PublicTrip; onBa
               </span>
             </div>
             <div className="mt-2 flex items-center justify-between">
-              <span className="font-semibold text-ink">Total</span>
-              <span className="text-2xl font-bold text-ink">{formatEUR(total)}</span>
+              <span className="font-extrabold text-ink">Total</span>
+              <span className="text-3xl font-black text-ink">{formatEUR(total)}</span>
             </div>
           </Card>
 
           {err && <ErrorBox message={err} />}
-          <Button type="submit" loading={busy} disabled={!seats.length} className="w-full py-3.5 text-base">
+          <Button type="submit" variant="accent" loading={busy} disabled={!seats.length} className="min-h-14 w-full text-base">
             <CreditCard className="h-5 w-5" /> Pay {seats.length ? formatEUR(total) : ''} with Stripe
           </Button>
           <p className="flex items-center justify-center gap-1.5 text-xs text-muted">

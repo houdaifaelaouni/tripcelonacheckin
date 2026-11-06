@@ -78,7 +78,7 @@ export function ReportsPage({ staff }: { staff: PublicStaff }) {
 
           {!sellerView && data.bySeller.length > 0 && (
             <Card>
-              <div className="mb-3 font-semibold text-ink">Sellers & commission</div>
+              <div className="mb-3 font-extrabold text-ink">Sellers & commission</div>
               <div className="divide-y divide-line">
                 {data.bySeller.map((s) => (
                   <div key={s.key} className="flex flex-wrap items-center gap-3 py-3">
@@ -89,7 +89,7 @@ export function ReportsPage({ staff }: { staff: PublicStaff }) {
                       </div>
                     </div>
                     <div className="text-right text-sm">
-                      <div className="font-semibold text-ink">{formatEUR(s.commissionOwed)} owed</div>
+                      <div className="font-extrabold text-ink">{formatEUR(s.commissionOwed)} owed</div>
                       <div className="text-xs text-muted">{formatEUR(s.commissionSettled)} paid out</div>
                     </div>
                     {can(staff.role, 'commissions.settle') && s.commissionOwed > 0 && (
@@ -112,14 +112,14 @@ function Breakdown({ title, rows }: { title: string; rows: { label: string; reve
   const max = Math.max(...rows.map((r) => r.revenue), 1);
   return (
     <Card>
-      <div className="mb-3 font-semibold text-ink">{title}</div>
+      <div className="mb-3 font-extrabold text-ink">{title}</div>
       {!rows.length && <div className="text-sm text-muted">No paid bookings.</div>}
       <div className="space-y-3">
         {rows.map((r) => (
           <div key={r.label}>
             <div className="flex justify-between text-sm">
               <span className="text-ink">{r.label}</span>
-              <span className="font-semibold text-ink">{formatEUR(r.revenue)}</span>
+              <span className="font-extrabold text-ink">{formatEUR(r.revenue)}</span>
             </div>
             <div className="mt-1 h-1.5 rounded-full bg-paper">
               <div className="h-1.5 rounded-full bg-brand" style={{ width: `${(r.revenue / max) * 100}%` }} />

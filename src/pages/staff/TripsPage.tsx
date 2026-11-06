@@ -29,9 +29,9 @@ export function TripsPage({ staff }: { staff: PublicStaff }) {
           )
         }
       />
-      <div className="mb-4 inline-flex rounded-xl border border-line bg-white p-1">
+      <div className="mb-4 inline-flex rounded-full border-[1.5px] border-line bg-white p-1">
         {(['upcoming', 'past'] as const).map((s) => (
-          <button key={s} onClick={() => setScope(s)} className={`rounded-lg px-4 py-1.5 text-sm font-medium capitalize ${scope === s ? 'bg-brand text-white' : 'text-muted'}`}>
+          <button key={s} onClick={() => setScope(s)} className={`rounded-full px-4 py-1.5 text-sm font-bold capitalize ${scope === s ? 'bg-brand text-paper' : 'text-body hover:text-ink'}`}>
             {s}
           </button>
         ))}
@@ -41,7 +41,7 @@ export function TripsPage({ staff }: { staff: PublicStaff }) {
       {error && <ErrorBox message={error} onRetry={reload} />}
       {data && !data.length && <Empty title={scope === 'upcoming' ? 'No upcoming trips' : 'No past trips'}>{manage && scope === 'upcoming' && 'Create the first departure with “New trip”.'}</Empty>}
       {data && data.length > 0 && (
-        <div className="overflow-hidden rounded-2xl border border-line bg-white">
+        <div className="overflow-hidden rounded-lg border border-line bg-white">
           {data.map((t) => {
             const pct = Math.round((t.sold / t.capacity) * 100);
             return (
@@ -54,7 +54,7 @@ export function TripsPage({ staff }: { staff: PublicStaff }) {
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
-                    <span className="truncate font-semibold text-ink">{t.name}</span>
+                    <span className="truncate font-extrabold text-ink">{t.name}</span>
                     {t.status !== 'scheduled' && <Badge tone={STATUS_TONE[t.status]}>{t.status}</Badge>}
                     {!t.onlineSales && t.status === 'scheduled' && <Badge>offline only</Badge>}
                   </div>
@@ -73,7 +73,7 @@ export function TripsPage({ staff }: { staff: PublicStaff }) {
                     <div className="h-1.5 rounded-full bg-brand" style={{ width: `${Math.min(pct, 100)}%` }} />
                   </div>
                 </div>
-                {staff.role !== 'seller' && <div className="w-24 text-right text-sm font-semibold text-ink">{formatEUR(t.revenue)}</div>}
+                {staff.role !== 'seller' && <div className="w-24 text-right text-sm font-extrabold text-ink">{formatEUR(t.revenue)}</div>}
               </button>
             );
           })}
@@ -186,7 +186,7 @@ export function TripForm({ trip, onClose, onSaved }: { trip: Partial<Trip>; onCl
           Sell online through the booking links
         </label>
         <Field label="Internal notes (optional)">
-          <textarea value={f.notes} onChange={set('notes')} rows={2} className="w-full rounded-xl border border-line px-3.5 py-2.5 text-sm outline-none focus:border-brand" />
+          <textarea value={f.notes} onChange={set('notes')} rows={2} className="w-full rounded-[20px] border-[1.5px] border-line px-5 py-3 text-base outline-none hover:border-line-strong focus:border-ink" />
         </Field>
         {err && <ErrorBox message={err} />}
         <div className="flex justify-end gap-2 pt-2">

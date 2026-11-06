@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Bus, KeyRound } from 'lucide-react';
+import { KeyRound } from 'lucide-react';
 import type { SessionInfo } from '../../../shared/types';
 import { api, errorText, saveSession } from '../../lib/api';
 import { googleIdToken } from '../../lib/googleSignIn';
 import { navigate } from '../../lib/router';
-import { Button, Card, ErrorBox, Field, Input } from '../../components/ui';
+import { Button, Card, ErrorBox, Field, Input, Logo } from '../../components/ui';
 
 export function LoginPage() {
   const [key, setKey] = useState('');
@@ -54,12 +54,10 @@ export function LoginPage() {
     <div className="grid min-h-screen place-items-center bg-paper px-4">
       <div className="w-full max-w-sm">
         <div className="mb-6 flex items-center justify-center gap-2.5">
-          <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand text-white">
-            <Bus className="h-5 w-5" />
-          </span>
+          <Logo size={44} />
           <div>
-            <div className="font-bold leading-tight text-ink">Tripcelona</div>
-            <div className="text-xs text-muted">Team access</div>
+            <div className="text-xl font-black leading-tight text-ink">Tripcelona</div>
+            <div className="text-[13px] text-body">Team access</div>
           </div>
         </div>
 
@@ -79,7 +77,7 @@ export function LoginPage() {
             </Button>
           </form>
 
-          <div className="my-5 flex items-center gap-3 text-xs text-muted">
+          <div className="my-6 flex items-center gap-3 text-[13px] font-bold text-body">
             <span className="h-px flex-1 bg-line" />
             Owner or partner
             <span className="h-px flex-1 bg-line" />

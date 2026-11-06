@@ -119,10 +119,10 @@ export function SellPage({ staff, search }: { staff: PublicStaff; search: URLSea
         <form onSubmit={submit} className="grid gap-5 lg:grid-cols-[auto_1fr]">
           <div>
             <div className="mb-2 flex items-center justify-between gap-2">
-              <span className="font-semibold text-ink">Seats</span>
+              <span className="text-lg font-extrabold text-ink">Seats</span>
               <div className="flex gap-1">
                 {[1, 2, 4].map((n) => (
-                  <button key={n} type="button" onClick={() => autoPick(n)} className="rounded-lg border border-line bg-white px-2 py-1 text-xs font-medium text-muted hover:text-ink">
+                  <button key={n} type="button" onClick={() => autoPick(n)} className="min-h-8 rounded-full border-[1.5px] border-line bg-white px-3 text-[13px] font-bold text-ink hover:border-ink">
                     Next {n}
                   </button>
                 ))}
@@ -141,9 +141,9 @@ export function SellPage({ staff, search }: { staff: PublicStaff; search: URLSea
                     setChannel(x.id);
                     setMethod(x.id === 'platform' ? 'platform' : 'stripe');
                   }}
-                  className={`rounded-xl border p-3 text-left ${channel === x.id ? 'border-brand bg-blue-50/60' : 'border-line bg-white'}`}
+                  className={`rounded-lg border-[1.5px] p-3 text-left transition-colors ${channel === x.id ? 'border-ink bg-mint' : 'border-line bg-white hover:border-line-strong'}`}
                 >
-                  <div className="text-sm font-semibold text-ink">{x.label}</div>
+                  <div className="text-[15px] font-extrabold text-ink">{x.label}</div>
                   <div className="text-[11px] leading-tight text-muted">{x.hint}</div>
                 </button>
               ))}
@@ -192,9 +192,9 @@ export function SellPage({ staff, search }: { staff: PublicStaff; search: URLSea
                       type="button"
                       key={id}
                       onClick={() => setMethod(id)}
-                      className={`rounded-xl border p-3 text-left ${method === id ? 'border-brand bg-blue-50/60' : 'border-line bg-white'}`}
+                      className={`rounded-lg border-[1.5px] p-3 text-left transition-colors ${method === id ? 'border-ink bg-mint' : 'border-line bg-white hover:border-line-strong'}`}
                     >
-                      <div className="text-sm font-semibold text-ink">{label}</div>
+                      <div className="text-[15px] font-extrabold text-ink">{label}</div>
                       <div className="text-[11px] text-muted">{hint}</div>
                     </button>
                   ))}
@@ -225,19 +225,19 @@ export function SellPage({ staff, search }: { staff: PublicStaff; search: URLSea
               <Input value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Pick-up note, special request…" />
             </Field>
 
-            <Card className="bg-paper">
+            <Card className="bg-mint/60 border-moss/30">
               <div className="flex justify-between text-sm text-muted">
                 <span>{seats.length ? `Seats ${seats.join(', ')}` : 'No seats selected'}</span>
                 {commission > 0 && <span>Your commission {formatEUR(commission)}</span>}
               </div>
               <div className="mt-1 flex items-center justify-between">
-                <span className="font-semibold text-ink">Total</span>
-                <span className="text-2xl font-bold text-ink">{formatEUR(method === 'free' ? 0 : total)}</span>
+                <span className="font-extrabold text-ink">Total</span>
+                <span className="text-3xl font-black text-ink">{formatEUR(method === 'free' ? 0 : total)}</span>
               </div>
             </Card>
 
             {err && <ErrorBox message={err} />}
-            <Button type="submit" loading={busy} disabled={!seats.length} className="w-full py-3">
+            <Button type="submit" variant="accent" loading={busy} disabled={!seats.length} className="min-h-14 w-full text-base">
               {method === 'stripe' && channel !== 'platform' ? 'Book & create Stripe payment link' : 'Book & issue tickets'}
             </Button>
           </div>

@@ -1,22 +1,66 @@
 @import 'tailwindcss';
 
+/*
+ * Tripcelona design tokens, adapted from the travel-marketplace system in
+ * docs/DESIGN.md: deep green ink instead of black, one neon action per area,
+ * pill controls, flat bordered cards, heavy untracked headings.
+ */
 @theme {
-  --color-brand: #0052f2;
-  --color-brand-dark: #003fc0;
-  --color-ink: #13171a;
-  --color-muted: #697077;
-  --color-line: #e3e6eb;
-  --color-paper: #f4f6f9;
-  --font-sans: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* Ink & text */
+  --color-ink: #002b11; /* headings, body text, primary buttons */
+  --color-body: #38443a; /* supporting copy */
+  --color-muted: #768a79; /* metadata, hints */
+
+  /* Actions */
+  --color-brand: #002b11; /* primary (deep green) */
+  --color-brand-dark: #0e3f1f; /* primary hover */
+  --color-accent: #00eb5b; /* the one key action per area */
+  --color-accent-hover: #00d352;
+  --color-moss: #00ab42; /* success, borders of accent buttons */
+  --color-pressed: #1f9448;
+
+  /* Surfaces & lines */
+  --color-paper: #f7f7f7;
+  --color-line: #dfe1df;
+  --color-line-strong: #768a79;
+  --color-mint: #e3fbea; /* soft tint of the action green */
+
+  /* States */
+  --color-gold: #ffc56f; /* unpaid / attention */
+  --color-gold-soft: #fff0d6;
+  --color-alert: #ffd9df; /* error container */
+  --color-alert-ink: #8a1328;
+  --color-stop: #c4122f; /* "do not board" */
+
+  --radius-xl2: 28px;
+  --font-sans: 'Inter', 'Inter Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
 }
 
 @layer base {
   html {
     -webkit-tap-highlight-color: transparent;
+    font-optical-sizing: auto;
   }
   body {
     @apply bg-paper font-sans text-ink antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+  h1,
+  h2,
+  h3 {
     letter-spacing: -0.01em;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 

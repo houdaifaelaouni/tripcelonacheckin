@@ -54,7 +54,7 @@ export function SuccessPage({ search }: { search: URLSearchParams }) {
       {data && data.tickets.length > 0 && (
         <div>
           <div className="mb-6 flex items-start gap-3">
-            <CheckCircle2 className="mt-0.5 h-8 w-8 shrink-0 text-emerald-600" />
+            <CheckCircle2 className="mt-0.5 h-8 w-8 shrink-0 text-moss" />
             <div>
               <h1 className="text-2xl font-bold text-ink">You're booked, {data.booking.payer.name.split(' ')[0]}!</h1>
               <p className="mt-1 text-sm text-muted">
@@ -66,7 +66,7 @@ export function SuccessPage({ search }: { search: URLSearchParams }) {
                   <>
                     {' '}
                     ·{' '}
-                    <a href={data.trip.meetingPointUrl} target="_blank" rel="noreferrer" className="font-medium text-brand underline">
+                    <a href={data.trip.meetingPointUrl} target="_blank" rel="noreferrer" className="font-bold text-ink underline underline-offset-2">
                       Open map
                     </a>
                   </>
@@ -75,12 +75,12 @@ export function SuccessPage({ search }: { search: URLSearchParams }) {
             </div>
           </div>
 
-          {data.booking.notes && <div className="mb-4 rounded-xl bg-amber-50 p-3 text-sm text-amber-900">{data.booking.notes}</div>}
+          {data.booking.notes && <div className="mb-4 rounded-lg bg-gold-soft px-4 py-3 text-sm font-medium text-[#5c3b00]">{data.booking.notes}</div>}
 
           <div className="mb-6 flex flex-wrap gap-2">
             {data.whatsappUrl && (
               <a href={data.whatsappUrl} target="_blank" rel="noreferrer">
-                <Button variant="success">
+                <Button variant="share">
                   <MessageCircle className="h-4 w-4" /> Save to WhatsApp
                 </Button>
               </a>
@@ -97,7 +97,7 @@ export function SuccessPage({ search }: { search: URLSearchParams }) {
                 <div className="mt-3 text-sm text-muted">Seat</div>
                 <div className="text-3xl font-bold text-ink">{t.seat}</div>
                 <div className="mt-1 font-medium text-ink">{t.passengerName}</div>
-                <a href={t.url} className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-brand">
+                <a href={t.url} className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-ink underline underline-offset-2">
                   Open pass <ExternalLink className="h-3.5 w-3.5" />
                 </a>
               </Card>

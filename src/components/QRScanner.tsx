@@ -73,18 +73,18 @@ export function QRScanner({ onScan, paused }: { onScan: (code: string) => void; 
 
   if (error) {
     return (
-      <div className="flex aspect-[4/3] flex-col items-center justify-center gap-2 rounded-3xl bg-ink p-6 text-center text-sm text-white/80">
+      <div className="flex aspect-[4/3] flex-col items-center justify-center gap-2 rounded-xl2 bg-brand p-6 text-center text-sm text-white/80">
         <CameraOff className="h-8 w-8" />
         {error}
       </div>
     );
   }
   return (
-    <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-black">
+    <div className="relative aspect-[4/3] overflow-hidden rounded-xl2 bg-black">
       <video ref={video} playsInline muted className="h-full w-full object-cover" />
       <canvas ref={canvas} className="hidden" />
       <div className="pointer-events-none absolute inset-0 grid place-items-center">
-        <div className="h-3/5 w-3/5 rounded-3xl border-4 border-white/80 shadow-[0_0_0_9999px_rgba(0,0,0,0.35)]" />
+        <div className="h-3/5 w-3/5 rounded-2xl border-4 border-accent shadow-[0_0_0_9999px_rgba(0,0,0,0.35)]" />
       </div>
     </div>
   );

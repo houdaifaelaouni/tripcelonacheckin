@@ -73,14 +73,14 @@ export function BookingDetail({ id, staff, onClose, onChanged, initial }: { id: 
         <div className="space-y-5">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
-              <div className="text-lg font-bold text-ink">{b.payer.name}</div>
+              <div className="text-xl font-black text-ink">{b.payer.name}</div>
               <div className="text-sm text-muted">{[b.payer.email, b.payer.phone].filter(Boolean).join(' · ') || 'No contact details'}</div>
               <div className="mt-1 text-sm text-muted">
                 {data.trip.name} · {formatDate(data.trip.date)} {data.trip.departureTime}
               </div>
             </div>
             <div className="text-right">
-              <div className="text-2xl font-bold text-ink">{formatEUR(b.amount)}</div>
+              <div className="mb-1 text-3xl font-black text-ink">{formatEUR(b.amount)}</div>
               <PaymentBadge b={b} />
             </div>
           </div>
@@ -96,24 +96,24 @@ export function BookingDetail({ id, staff, onClose, onChanged, initial }: { id: 
             )}
             <span className="text-muted">Created {formatDateTime(b.createdAt)}</span>
           </div>
-          {b.notes && <div className="rounded-xl bg-paper p-3 text-sm text-ink">{b.notes}</div>}
+          {b.notes && <div className="rounded-lg bg-paper px-4 py-3 text-sm text-ink">{b.notes}</div>}
 
           {/* Stripe payment link for unpaid staff sales */}
           {mine && b.status === 'confirmed' && b.payment.status === 'unpaid' && b.amount > 0 && (
-            <div className="rounded-2xl border border-brand/30 bg-blue-50/50 p-4">
-              <div className="mb-2 flex items-center gap-2 font-semibold text-ink">
-                <CreditCard className="h-4 w-4 text-brand" /> Customer pays with Stripe
+            <div className="rounded-2xl border border-moss/40 bg-mint/60 p-4">
+              <div className="mb-3 flex items-center gap-2 text-lg font-extrabold text-ink">
+                <CreditCard className="h-5 w-5 text-moss" /> Customer pays with Stripe
               </div>
               {link ? (
                 <div className="space-y-2">
-                  <div className="truncate rounded-lg bg-white px-3 py-2 font-mono text-xs text-muted">{link}</div>
+                  <div className="truncate rounded-full border border-line bg-white px-4 py-2.5 text-[13px] text-body">{link}</div>
                   <div className="flex flex-wrap gap-2">
                     <Button variant="secondary" onClick={() => copy(link)}>
                       <Copy className="h-4 w-4" /> {copied ? 'Copied!' : 'Copy link'}
                     </Button>
                     {payWhatsapp && (
                       <a href={payWhatsapp} target="_blank" rel="noreferrer">
-                        <Button variant="success">
+                        <Button variant="share">
                           <MessageCircle className="h-4 w-4" /> Send on WhatsApp
                         </Button>
                       </a>
@@ -125,11 +125,11 @@ export function BookingDetail({ id, staff, onClose, onChanged, initial }: { id: 
                   <p className="text-xs text-muted">The booking turns “Paid” automatically when the customer pays. Links stay valid for 24 hours.</p>
                 </div>
               ) : (
-                <Button loading={busy === 'link'} onClick={() => act('link', `/bookings/${b.id}/payment-link`)}>
+                <Button variant="accent" loading={busy === 'link'} onClick={() => act('link', `/bookings/${b.id}/payment-link`)}>
                   Create Stripe payment link
                 </Button>
               )}
-              <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-brand/10 pt-3 text-sm">
+              <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-moss/25 pt-3 text-sm">
                 <span className="text-muted">Paid another way?</span>
                 <Select value={paidMethod} onChange={(e) => setPaidMethod(e.target.value)} className="!w-auto !py-1.5">
                   <option value="cash">Cash</option>
@@ -144,19 +144,19 @@ export function BookingDetail({ id, staff, onClose, onChanged, initial }: { id: 
           )}
 
           <div>
-            <div className="mb-2 text-sm font-semibold text-ink">Tickets</div>
-            <div className="divide-y divide-line rounded-2xl border border-line">
+            <div className="mb-2 text-lg font-extrabold text-ink">Tickets</div>
+            <div className="divide-y divide-line rounded-lg border border-line">
               {data.tickets.map((t) => (
                 <div key={t.id} className="flex items-center justify-between gap-3 px-4 py-3">
                   <div className="flex items-center gap-3">
-                    <span className="grid h-9 w-9 place-items-center rounded-lg bg-paper font-bold text-ink">{t.seat}</span>
+                    <span className="grid h-10 w-10 place-items-center rounded-lg bg-brand font-black text-accent">{t.seat}</span>
                     <div>
                       <div className="font-medium text-ink">{t.passengerName}</div>
                       <div className="text-xs text-muted">{t.status === 'checked_in' ? `Boarded ${formatDateTime(t.checkedInAt)}` : t.status === 'cancelled' ? 'Cancelled' : 'Not boarded yet'}</div>
                     </div>
                   </div>
                   {t.status !== 'cancelled' && (
-                    <a href={t.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-sm font-medium text-brand">
+                    <a href={t.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-sm font-bold text-ink underline underline-offset-2">
                       Pass <ExternalLink className="h-3.5 w-3.5" />
                     </a>
                   )}
@@ -172,7 +172,7 @@ export function BookingDetail({ id, staff, onClose, onChanged, initial }: { id: 
             <div className="flex flex-wrap gap-2 border-t border-line pt-4">
               {data.whatsappUrl && b.payer.phone && (
                 <a href={data.whatsappUrl} target="_blank" rel="noreferrer">
-                  <Button variant="success">
+                  <Button variant="share">
                     <MessageCircle className="h-4 w-4" /> Send tickets on WhatsApp
                   </Button>
                 </a>

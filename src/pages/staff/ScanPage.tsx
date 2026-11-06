@@ -33,10 +33,10 @@ export function ScanPage({ staff, search }: { staff: PublicStaff; search: URLSea
         <div className="grid gap-3">
           {list.slice(0, 20).map((t) => (
             <button key={t.id} onClick={() => setTripId(t.id)} className="text-left">
-              <Card className="hover:border-brand">
+              <Card className="transition-colors hover:border-ink">
                 <div className="flex items-center justify-between gap-3">
                   <div>
-                    <div className="font-semibold text-ink">{t.name}</div>
+                    <div className="font-extrabold text-ink">{t.name}</div>
                     <div className="text-sm text-muted">
                       {t.date === todayIso() ? 'Today' : formatDate(t.date)} · {t.departureTime} · {t.meetingPoint}
                     </div>
@@ -92,10 +92,10 @@ function Scanner({ trip, onBack }: { trip: TripSummary; onBack: () => void }) {
 
   const tone =
     result?.outcome === 'boarded'
-      ? { bg: 'bg-emerald-600', Icon: CheckCircle2, title: 'Board' }
+      ? { bg: 'bg-accent text-ink', Icon: CheckCircle2, title: 'Board' }
       : result?.outcome === 'already_boarded' || result?.outcome === 'unpaid'
-        ? { bg: 'bg-amber-500', Icon: AlertTriangle, title: result.outcome === 'unpaid' ? 'Not paid' : 'Already boarded' }
-        : { bg: 'bg-red-600', Icon: XCircle, title: 'Do not board' };
+        ? { bg: 'bg-gold text-ink', Icon: AlertTriangle, title: result.outcome === 'unpaid' ? 'Not paid' : 'Already boarded' }
+        : { bg: 'bg-stop text-white', Icon: XCircle, title: 'Do not board' };
 
   return (
     <div className="mx-auto max-w-md">
@@ -108,32 +108,32 @@ function Scanner({ trip, onBack }: { trip: TripSummary; onBack: () => void }) {
         </Button>
       </div>
       <div className="mb-3">
-        <div className="text-lg font-bold text-ink">{t.name}</div>
+        <div className="text-xl font-black text-ink">{t.name}</div>
         <div className="text-sm text-muted">
           {t.date === todayIso() ? 'Today' : formatDate(t.date)} · {t.departureTime}
         </div>
       </div>
       <div className="mb-4 grid grid-cols-2 gap-3">
-        <div className="rounded-2xl bg-white p-3 text-center">
-          <div className="text-3xl font-bold text-emerald-600">{t.boarded}</div>
-          <div className="text-xs text-muted">boarded</div>
+        <div className="rounded-lg bg-brand p-3 text-center text-paper">
+          <div className="text-4xl font-black text-accent">{t.boarded}</div>
+          <div className="text-[13px] font-bold text-paper/80">boarded</div>
         </div>
-        <div className="rounded-2xl bg-white p-3 text-center">
-          <div className="text-3xl font-bold text-ink">{Math.max(t.sold - t.boarded, 0)}</div>
-          <div className="text-xs text-muted">still to board</div>
+        <div className="rounded-lg border border-line bg-white p-3 text-center">
+          <div className="text-4xl font-black text-ink">{Math.max(t.sold - t.boarded, 0)}</div>
+          <div className="text-[13px] font-bold text-body">still to board</div>
         </div>
       </div>
 
       <div className="relative">
         <QRScanner onScan={(c) => !busy && !result && scan(c)} paused={!!result || busy} />
         {result && (
-          <div className={`absolute inset-0 flex flex-col items-center justify-center rounded-3xl p-6 text-center text-white ${tone.bg}`}>
+          <div className={`absolute inset-0 flex flex-col items-center justify-center rounded-xl2 p-6 text-center ${tone.bg}`}>
             <tone.Icon className="h-14 w-14" />
-            <div className="mt-2 text-2xl font-bold">{tone.title}</div>
+            <div className="mt-2 text-2xl font-black">{tone.title}</div>
             {result.ticket && (
               <div className="mt-2">
-                <div className="text-5xl font-black">Seat {result.ticket.seat}</div>
-                <div className="mt-1 text-lg font-semibold">{result.ticket.passengerName}</div>
+                <div className="text-6xl font-black leading-none">Seat {result.ticket.seat}</div>
+                <div className="mt-1 text-lg font-extrabold">{result.ticket.passengerName}</div>
               </div>
             )}
             <div className="mt-2 text-sm opacity-90">{result.message}</div>
