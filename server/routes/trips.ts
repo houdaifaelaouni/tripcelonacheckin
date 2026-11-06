@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import type { Booking, ManifestRow, Staff, Ticket, Trip, TripStatus, TripSummary } from '../../shared/types';
-import { DEFAULT_CAPACITY, MAX_CAPACITY } from '../../shared/types';
-import { can } from '../../shared/permissions';
-import { countsAsRevenue, round2 } from '../../shared/logic';
-import { col, audit, nowIso } from '../firebase';
-import { bad, conflict, forbidden, handle, me, notFound, requirePermission, str } from '../http';
-import { newId } from '../security';
-import { stripUndefined, takenSeats } from '../seats';
+import type { Booking, ManifestRow, Staff, Ticket, Trip, TripStatus, TripSummary } from '../../shared/types.js';
+import { DEFAULT_CAPACITY, MAX_CAPACITY } from '../../shared/types.js';
+import { can } from '../../shared/permissions.js';
+import { countsAsRevenue, round2 } from '../../shared/logic.js';
+import { col, audit, nowIso } from '../firebase.js';
+import { bad, conflict, forbidden, handle, me, notFound, requirePermission, str } from '../http.js';
+import { newId } from '../security.js';
+import { stripUndefined, takenSeats } from '../seats.js';
 
 export const tripsRouter = Router();
 

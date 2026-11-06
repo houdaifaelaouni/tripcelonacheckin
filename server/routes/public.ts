@@ -1,15 +1,15 @@
 // Endpoints customers use without an account: browse trips on a booking link,
 // pay, see their passes. Nothing here trusts prices or seats from the browser.
 import express, { Router } from 'express';
-import type { Booking, Partner, PublicPass, PublicTrip, StripeSlot, Ticket, Trip } from '../../shared/types';
-import { round2 } from '../../shared/logic';
-import { col, audit, nowIso } from '../firebase';
-import { bad, handle, notFound, str, HttpError } from '../http';
-import { confirmHeldBooking, createBooking, releaseBooking, stripUndefined, takenSeats } from '../seats';
-import { createCheckout, isSlot, stripeFor, verifyWebhook } from '../stripe';
-import { verifyTicketCode } from '../security';
-import { env } from '../env';
-import { sendConfirmationEmail, whatsappLink, passUrl } from '../notify';
+import type { Booking, Partner, PublicPass, PublicTrip, StripeSlot, Ticket, Trip } from '../../shared/types.js';
+import { round2 } from '../../shared/logic.js';
+import { col, audit, nowIso } from '../firebase.js';
+import { bad, handle, notFound, str, HttpError } from '../http.js';
+import { confirmHeldBooking, createBooking, releaseBooking, stripUndefined, takenSeats } from '../seats.js';
+import { createCheckout, isSlot, stripeFor, verifyWebhook } from '../stripe.js';
+import { verifyTicketCode } from '../security.js';
+import { env } from '../env.js';
+import { sendConfirmationEmail, whatsappLink, passUrl } from '../notify.js';
 
 export const publicRouter = Router();
 export const webhookRouter = Router();

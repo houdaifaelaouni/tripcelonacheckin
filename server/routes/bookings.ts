@@ -1,13 +1,13 @@
 import { Router } from 'express';
-import type { Booking, Channel, Partner, PaymentMethod, Staff, Ticket, Trip } from '../../shared/types';
-import { PLATFORMS } from '../../shared/types';
-import { can } from '../../shared/permissions';
-import { commissionFor, round2 } from '../../shared/logic';
-import { col, audit, nowIso } from '../firebase';
-import { bad, forbidden, handle, me, notFound, requirePermission, str } from '../http';
-import { createBooking, moveTicket, releaseBooking, stripUndefined } from '../seats';
-import { passUrl, sendConfirmationEmail, whatsappLink } from '../notify';
-import { createCheckout } from '../stripe';
+import type { Booking, Channel, Partner, PaymentMethod, Staff, Ticket, Trip } from '../../shared/types.js';
+import { PLATFORMS } from '../../shared/types.js';
+import { can } from '../../shared/permissions.js';
+import { commissionFor, round2 } from '../../shared/logic.js';
+import { col, audit, nowIso } from '../firebase.js';
+import { bad, forbidden, handle, me, notFound, requirePermission, str } from '../http.js';
+import { createBooking, moveTicket, releaseBooking, stripUndefined } from '../seats.js';
+import { passUrl, sendConfirmationEmail, whatsappLink } from '../notify.js';
+import { createCheckout } from '../stripe.js';
 
 export const bookingsRouter = Router();
 export const ticketsRouter = Router();

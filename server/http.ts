@@ -1,9 +1,9 @@
 import type { Request, Response, NextFunction, RequestHandler } from 'express';
-import type { Staff } from '../shared/types';
-import { can, type Permission } from '../shared/permissions';
-import { verifySession } from './security';
-import { col } from './firebase';
-import { env } from './env';
+import type { Staff } from '../shared/types.js';
+import { can, type Permission } from '../shared/permissions.js';
+import { verifySession } from './security.js';
+import { col } from './firebase.js';
+import { env } from './env.js';
 
 export class HttpError extends Error {
   constructor(public status: number, message: string) {

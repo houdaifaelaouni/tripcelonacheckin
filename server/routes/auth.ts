@@ -1,12 +1,12 @@
 // Two ways in: Google (owner, partners) or a personal access key
 // (coordinators, sellers, drivers). Both end in the same signed session token.
 import { Router } from 'express';
-import type { SessionInfo, Staff } from '../../shared/types';
-import { GOOGLE_ROLES, KEY_ROLES } from '../../shared/types';
-import { adminAuth, col, audit, nowIso } from '../firebase';
-import { HttpError, bad, handle, me, publicStaff, requireAuth, str } from '../http';
-import { newId, parseAccessKey, signSession, verifyAccessKeySecret } from '../security';
-import { env } from '../env';
+import type { SessionInfo, Staff } from '../../shared/types.js';
+import { GOOGLE_ROLES, KEY_ROLES } from '../../shared/types.js';
+import { adminAuth, col, audit, nowIso } from '../firebase.js';
+import { HttpError, bad, handle, me, publicStaff, requireAuth, str } from '../http.js';
+import { newId, parseAccessKey, signSession, verifyAccessKeySecret } from '../security.js';
+import { env } from '../env.js';
 
 export const authRouter = Router();
 

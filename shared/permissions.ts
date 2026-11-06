@@ -1,4 +1,4 @@
-import type { Role } from './types';
+import type { Role } from './types.js';
 
 // Every action the staff app can perform. The server checks these on each
 // request; the client uses the same map only to decide what to show.

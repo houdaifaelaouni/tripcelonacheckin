@@ -1,4 +1,4 @@
-import type { Booking, SeatLock } from './types';
+import type { Booking, SeatLock } from './types.js';
 
 export const round2 = (n: number) => Math.round(n * 100) / 100;
 

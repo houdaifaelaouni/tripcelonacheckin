@@ -1,13 +1,13 @@
 // Owner tools: staff & access keys, partner businesses, payment set-up.
 import { Router } from 'express';
-import type { Partner, Role, Staff } from '../../shared/types';
-import { KEY_ROLES, ROLES, GOOGLE_ROLES } from '../../shared/types';
-import { col, audit, nowIso } from '../firebase';
-import { bad, conflict, forbidden, handle, me, notFound, publicStaff, requirePermission, str } from '../http';
-import { issueAccessKey, newId } from '../security';
-import { stripeStatus } from '../stripe';
-import { stripUndefined } from '../seats';
-import { env } from '../env';
+import type { Partner, Role, Staff } from '../../shared/types.js';
+import { KEY_ROLES, ROLES, GOOGLE_ROLES } from '../../shared/types.js';
+import { col, audit, nowIso } from '../firebase.js';
+import { bad, conflict, forbidden, handle, me, notFound, publicStaff, requirePermission, str } from '../http.js';
+import { issueAccessKey, newId } from '../security.js';
+import { stripeStatus } from '../stripe.js';
+import { stripUndefined } from '../seats.js';
+import { env } from '../env.js';
 
 export const staffRouter = Router();
 export const partnersRouter = Router();

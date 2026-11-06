@@ -4,7 +4,7 @@ import { initializeApp, getApps, cert, applicationDefault, type App } from 'fire
 import { getFirestore, type Firestore } from 'firebase-admin/firestore';
 import { getAuth } from 'firebase-admin/auth';
 import firebaseConfig from '../firebase-applet-config.json' with { type: 'json' };
-import { env } from './env';
+import { env } from './env.js';
 
 function parseServiceAccount(raw: string) {
   const text = raw.trim().startsWith('{') ? raw : Buffer.from(raw, 'base64').toString('utf8');

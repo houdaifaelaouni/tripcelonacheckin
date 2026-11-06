@@ -1,6 +1,6 @@
 // Pure aggregation for the reports screen (unit-tested).
-import type { Booking, Channel, PaymentMethod } from './types';
-import { countsAsRevenue, round2 } from './logic';
+import type { Booking, Channel, PaymentMethod } from './types.js';
+import { countsAsRevenue, round2 } from './logic.js';
 
 export interface Bucket {
   key: string;

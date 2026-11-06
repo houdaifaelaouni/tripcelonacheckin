@@ -1,12 +1,12 @@
 // Boarding. Drivers can only board passengers on trips assigned to them.
 import { Router } from 'express';
-import type { Booking, ScanResult, Ticket, Trip } from '../../shared/types';
-import { col, db, audit, nowIso } from '../firebase';
-import { bad, forbidden, handle, me, notFound, requirePermission, str } from '../http';
-import { verifyTicketCode } from '../security';
-import { env } from '../env';
-import { getTripFor } from './trips';
-import { formatEUR } from '../../shared/logic';
+import type { Booking, ScanResult, Ticket, Trip } from '../../shared/types.js';
+import { col, db, audit, nowIso } from '../firebase.js';
+import { bad, forbidden, handle, me, notFound, requirePermission, str } from '../http.js';
+import { verifyTicketCode } from '../security.js';
+import { env } from '../env.js';
+import { getTripFor } from './trips.js';
+import { formatEUR } from '../../shared/logic.js';
 
 export const checkinRouter = Router();
 

@@ -1,7 +1,7 @@
 // Cryptographic primitives: staff session tokens, personal access keys,
 // and signed QR codes. Depends only on node:crypto so it can be unit-tested.
 import crypto from 'node:crypto';
-import type { Role } from '../shared/types';
+import type { Role } from '../shared/types.js';
 
 const b64url = (buf: Buffer) => buf.toString('base64url');
 

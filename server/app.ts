@@ -1,12 +1,12 @@
 import express from 'express';
-import { errorHandler, requireAuth } from './http';
-import { publicRouter, webhookRouter } from './routes/public';
-import { authRouter } from './routes/auth';
-import { tripsRouter } from './routes/trips';
-import { bookingsRouter, ticketsRouter } from './routes/bookings';
-import { checkinRouter } from './routes/checkin';
-import { staffRouter, partnersRouter, settingsRouter } from './routes/admin';
-import { reportsRouter } from './routes/reports';
+import { errorHandler, requireAuth } from './http.js';
+import { publicRouter, webhookRouter } from './routes/public.js';
+import { authRouter } from './routes/auth.js';
+import { tripsRouter } from './routes/trips.js';
+import { bookingsRouter, ticketsRouter } from './routes/bookings.js';
+import { checkinRouter } from './routes/checkin.js';
+import { staffRouter, partnersRouter, settingsRouter } from './routes/admin.js';
+import { reportsRouter } from './routes/reports.js';
 
 export function createApi() {
   const app = express();

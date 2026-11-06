@@ -1,8 +1,8 @@
 // Passenger confirmations. Email is sent automatically when RESEND_API_KEY is
 // set; WhatsApp uses a wa.me link the passenger or seller taps to send.
-import type { Booking, Ticket, Trip } from '../shared/types';
-import { formatEUR } from '../shared/logic';
-import { env } from './env';
+import type { Booking, Ticket, Trip } from '../shared/types.js';
+import { formatEUR } from '../shared/logic.js';
+import { env } from './env.js';
 
 export const passUrl = (t: Pick<Ticket, 'code'>) => `${env.appUrl}/pass/${t.code}`;
 

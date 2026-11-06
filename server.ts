@@ -3,7 +3,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import express from 'express';
-import { createApi } from './server/app';
+import { createApi } from './server/app.js';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const portArg = process.argv.indexOf('--port');

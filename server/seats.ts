@@ -2,13 +2,13 @@
 // trips/{tripId}/seats/{seat} lock documents, so two buyers can never end up
 // with the same seat, whatever channel they come from.
 import type { Transaction } from 'firebase-admin/firestore';
-import type { Booking, SeatLock, Ticket, Trip } from '../shared/types';
-import { HOLD_MINUTES } from '../shared/types';
-import { isLockActive, validateSeats } from '../shared/logic';
-import { col, db, nowIso } from './firebase';
-import { newId, signTicketCode } from './security';
-import { env } from './env';
-import { bad, conflict, notFound } from './http';
+import type { Booking, SeatLock, Ticket, Trip } from '../shared/types.js';
+import { HOLD_MINUTES } from '../shared/types.js';
+import { isLockActive, validateSeats } from '../shared/logic.js';
+import { col, db, nowIso } from './firebase.js';
+import { newId, signTicketCode } from './security.js';
+import { env } from './env.js';
+import { bad, conflict, notFound } from './http.js';
 
 const seatRef = (tripId: string, seat: number) => col.seats(tripId).doc(String(seat));
 

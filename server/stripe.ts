@@ -1,9 +1,9 @@
 // Two Stripe accounts, one per partner business. The public booking link
 // decides which one is charged: /book/1 → STRIPE_SECRET_KEY_1, /book/2 → _2.
 import Stripe from 'stripe';
-import type { Booking, StripeSlot, Trip } from '../shared/types';
-import { env } from './env';
-import { HttpError } from './http';
+import type { Booking, StripeSlot, Trip } from '../shared/types.js';
+import { env } from './env.js';
+import { HttpError } from './http.js';
 
 const clients: Partial<Record<StripeSlot, Stripe>> = {};
 

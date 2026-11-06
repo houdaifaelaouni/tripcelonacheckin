@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import type { Booking } from '../../shared/types';
-import { can } from '../../shared/permissions';
-import { buildReport } from '../../shared/report';
-import { countsAsRevenue } from '../../shared/logic';
-import { col, db, audit, nowIso } from '../firebase';
-import { bad, forbidden, handle, me, requirePermission, str } from '../http';
+import type { Booking } from '../../shared/types.js';
+import { can } from '../../shared/permissions.js';
+import { buildReport } from '../../shared/report.js';
+import { countsAsRevenue } from '../../shared/logic.js';
+import { col, db, audit, nowIso } from '../firebase.js';
+import { bad, forbidden, handle, me, requirePermission, str } from '../http.js';
 
 export const reportsRouter = Router();
 

@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import type { StripeSlot } from '../shared/types';
+import type { StripeSlot } from '../shared/types.js';
 
 function required(name: string): string {
   const v = process.env[name];
