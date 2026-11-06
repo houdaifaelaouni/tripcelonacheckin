@@ -1,294 +1,33 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@theme {
+  --color-brand: #0052f2;
+  --color-brand-dark: #003fc0;
+  --color-ink: #13171a;
+  --color-muted: #697077;
+  --color-line: #e3e6eb;
+  --color-paper: #f4f6f9;
+  --font-sans: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
 
 @layer base {
-  /* Gellix Webfont Definitions with Poppins and Geometric Sans Fallbacks */
-  @font-face {
-    font-family: 'Gellix';
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: local('Gellix-Regular'), local('Gellix'), local('Poppins-Regular');
+  html {
+    -webkit-tap-highlight-color: transparent;
   }
-
-  @font-face {
-    font-family: 'Gellix';
-    font-style: normal;
-    font-weight: 500;
-    font-display: swap;
-    src: local('Gellix-Medium'), local('Poppins-Medium');
-  }
-
-  @font-face {
-    font-family: 'Gellix';
-    font-style: normal;
-    font-weight: 600;
-    font-display: swap;
-    src: local('Gellix-SemiBold'), local('Poppins-SemiBold');
-  }
-
-  @font-face {
-    font-family: 'Gellix';
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: local('Gellix-Bold'), local('Poppins-Bold');
-  }
-
-  :root {
-    --color-amplitude-blue: #0052F2;
-    --color-amplitude-blue-dark: #4083FF;
-    --color-black: #000000;
-    --color-white: #FFFFFF;
-    
-    --color-dark-blue: #001A4F;
-    --color-lilac: #6980FF;
-    --color-violet: #A373FF;
-    --color-pink: #FF7D78;
-    --color-red: #F23845;
-
-    --color-gray-100: #13171A;
-    --color-gray-90: #242A2E;
-    --color-gray-80: #373D42;
-    --color-gray-70: #50565B;
-    --color-gray-60: #697077;
-    --color-gray-50: #868D95;
-    --color-gray-40: #9FA5AD;
-    --color-gray-30: #B9BFC7;
-    --color-gray-20: #D5D9E0;
-    --color-gray-10: #F2F4F8;
-  }
-
   body {
-    font-family: 'Gellix', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #FFFFFF;
-    color: #000000;
-    margin: 0;
-    padding: 0;
-    -webkit-font-smoothing: antialiased;
+    @apply bg-paper font-sans text-ink antialiased;
     letter-spacing: -0.01em;
   }
 }
 
-.font-gellix {
-  font-family: 'Gellix', 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-/* Typography Scale according to Amplitude Design System */
-.title-xxl {
-  font-family: 'Gellix', 'Poppins', sans-serif;
-  font-weight: 700;
-  font-size: clamp(36px, 6vw, 64px);
-  line-height: 1.1;
-  letter-spacing: -0.025em;
-}
-
-.title-xl {
-  font-family: 'Gellix', 'Poppins', sans-serif;
-  font-weight: 600;
-  font-size: clamp(32px, 5vw, 56px);
-  line-height: 1.12;
-  letter-spacing: -0.02em;
-}
-
-.title-l {
-  font-family: 'Gellix', 'Poppins', sans-serif;
-  font-weight: 600;
-  font-size: clamp(26px, 4vw, 44px);
-  line-height: 1.15;
-  letter-spacing: -0.015em;
-}
-
-.title-m {
-  font-family: 'Gellix', 'Poppins', sans-serif;
-  font-weight: 600;
-  font-size: clamp(22px, 3.5vw, 36px);
-  line-height: 1.18;
-  letter-spacing: -0.015em;
-}
-
-.title-s {
-  font-family: 'Gellix', 'Poppins', sans-serif;
-  font-weight: 600;
-  font-size: clamp(20px, 3vw, 28px);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-}
-
-.title-xs {
-  font-family: 'Gellix', 'Poppins', sans-serif;
-  font-weight: 500;
-  font-size: clamp(18px, 2.5vw, 22px);
-  line-height: 1.25;
-}
-
-.eyebrow-m {
-  font-family: 'Gellix', 'Poppins', sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--color-amplitude-blue);
-}
-
-.eyebrow-s {
-  font-family: 'Gellix', 'Poppins', sans-serif;
-  font-weight: 600;
-  font-size: 12px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--color-amplitude-blue);
-}
-
-.text-xl-amp {
-  font-family: 'Gellix', 'Poppins', sans-serif;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 27px;
-}
-
-.text-l-amp {
-  font-family: 'Gellix', 'Poppins', sans-serif;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 24px;
-}
-
-.text-m-amp {
-  font-family: 'Gellix', 'Poppins', sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 22px;
-}
-
-.text-s-amp {
-  font-family: 'Gellix', 'Poppins', sans-serif;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 19px;
-}
-
-.text-xs-amp {
-  font-family: 'Gellix', 'Poppins', sans-serif;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 16px;
-}
-
-.text-xxs-amp {
-  font-family: 'Gellix', 'Poppins', sans-serif;
-  font-weight: 600;
-  font-size: 10px;
-  line-height: 13px;
-}
-
-/* Amplitude Button System (8px radius = rounded-lg) */
-.btn-primary {
-  background-color: #0052F2;
-  color: #FFFFFF;
-  border: 1px solid #0052F2;
-  border-radius: 8px;
-  font-family: 'Gellix', 'Poppins', sans-serif;
-  font-weight: 500;
-  transition: all 0.15s ease-in-out;
-}
-
-.btn-primary:hover:not(:disabled) {
-  background-color: #0045CC;
-  border-color: #0045CC;
-}
-
-.btn-secondary {
-  background-color: #FFFFFF;
-  color: #1E2024;
-  border: 1px solid #DEDDE2;
-  border-radius: 8px;
-  font-family: 'Gellix', 'Poppins', sans-serif;
-  font-weight: 500;
-  transition: all 0.15s ease-in-out;
-}
-
-.btn-secondary:hover:not(:disabled) {
-  background-color: #F2F4F8;
-  border-color: #B9BFC7;
-}
-
-.btn-tertiary {
-  background-color: transparent;
-  color: #0052F2;
-  border: none;
-  border-radius: 8px;
-  font-family: 'Gellix', 'Poppins', sans-serif;
-  font-weight: 500;
-  transition: all 0.15s ease-in-out;
-}
-
-.btn-tertiary:hover:not(:disabled) {
-  background-color: rgba(0, 82, 242, 0.08);
-}
-
-.btn-tertiary-alt {
-  background-color: transparent;
-  color: #1E2024;
-  border: none;
-  border-radius: 8px;
-  font-family: 'Gellix', 'Poppins', sans-serif;
-  font-weight: 500;
-  transition: all 0.15s ease-in-out;
-}
-
-.btn-tertiary-alt:hover:not(:disabled) {
-  background-color: #F2F4F8;
-}
-
-/* Laser Scanner Animation */
-@keyframes scan-laser {
-  0% {
-    top: 2%;
-    opacity: 0.8;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    top: 96%;
-    opacity: 0.8;
-  }
-}
-
-.animate-scan {
-  animation: scan-laser 2s ease-in-out infinite alternate;
-}
-
-@keyframes fadeIn {
-  from { 
-    opacity: 0; 
-    transform: translateY(4px); 
-  }
-  to { 
-    opacity: 1; 
-    transform: translateY(0); 
-  }
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.2s ease-out forwards;
-}
-
-/* Print Clean Styles */
 @media print {
-  body {
-    background: #FFFFFF !important;
-    color: #000000 !important;
-  }
-  header, footer, nav, button, .no-print {
+  header,
+  nav,
+  aside,
+  button {
     display: none !important;
   }
-  #printable-ticket {
-    border: 1px solid #B9BFC7 !important;
-    box-shadow: none !important;
-    background: #FFFFFF !important;
-    color: #000000 !important;
-    max-width: 100% !important;
-    margin: 0 auto !important;
+  body {
+    background: white;
   }
 }
