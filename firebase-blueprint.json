@@ -1,0 +1,88 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile with role-based access control for Tripcelona staff.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 256 },
+        "displayName": { "type": "string", "maxLength": 128 },
+        "role": { "type": "string", "enum": ["admin", "driver", "ticketing_agent", "travel_creator"] },
+        "photoURL": { "type": "string", "maxLength": 1024 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Travel": {
+      "title": "Travel",
+      "description": "A scheduled bus travel/trip with customizable places capacity.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 128 },
+        "date": { "type": "string", "maxLength": 32 },
+        "time": { "type": "string", "maxLength": 32 },
+        "origin": { "type": "string", "maxLength": 128 },
+        "destination": { "type": "string", "maxLength": 128 },
+        "viajesNumber": { "type": "string", "maxLength": 64 },
+        "capacity": { "type": "number" },
+        "status": { "type": "string", "enum": ["scheduled", "in_progress", "completed", "cancelled"] },
+        "createdBy": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "name", "date", "origin", "destination", "viajesNumber", "capacity"]
+    },
+    "Ticket": {
+      "title": "Ticket",
+      "description": "A passenger boarding pass ticket for a specific travel with seat number and QR payload.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "tripId": { "type": "string", "maxLength": 128 },
+        "firstName": { "type": "string", "maxLength": 128 },
+        "lastName": { "type": "string", "maxLength": 128 },
+        "destination": { "type": "string", "maxLength": 128 },
+        "seatNumber": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "checked_in", "cancelled"] },
+        "qrPayload": { "type": "string", "maxLength": 2048 },
+        "checkedInAt": { "type": "string", "format": "date-time" },
+        "checkedInBy": { "type": "string", "maxLength": 128 },
+        "createdByName": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "tripId", "firstName", "lastName", "destination", "seatNumber", "status", "qrPayload"]
+    },
+    "SystemSettings": {
+      "title": "SystemSettings",
+      "description": "System-wide Stripe dual-account and application settings.",
+      "type": "object",
+      "properties": {
+        "stripeAccount1": { "type": "object" },
+        "stripeAccount2": { "type": "object" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profiles storing application roles."
+    },
+    "/trips/{tripId}": {
+      "schema": "Travel",
+      "description": "Travels and bus departures with customizable places."
+    },
+    "/tickets/{ticketId}": {
+      "schema": "Ticket",
+      "description": "Passenger boarding passes and check-in status."
+    },
+    "/settings/{settingId}": {
+      "schema": "SystemSettings",
+      "description": "System settings such as Stripe dual accounts split."
+    }
+  }
+}

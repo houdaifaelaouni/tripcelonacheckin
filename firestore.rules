@@ -1,0 +1,148 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Hardened Global Helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isBootstrappedAdmin() {
+      return isSignedIn() && request.auth.token.email == 'houdayfaelaouni2006@gmail.com';
+    }
+
+    function getUserRole() {
+      return exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        ? get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role
+        : 'driver';
+    }
+
+    function isAdmin() {
+      return isBootstrappedAdmin() || (isSignedIn() && getUserRole() == 'admin');
+    }
+
+    function isTravelCreator() {
+      return isAdmin() || (isSignedIn() && getUserRole() == 'travel_creator');
+    }
+
+    function isTicketingAgent() {
+      return isAdmin() || (isSignedIn() && getUserRole() == 'ticketing_agent');
+    }
+
+    function isDriver() {
+      return isAdmin() || (isSignedIn() && getUserRole() == 'driver');
+    }
+
+    // Entity Validation: UserProfile
+    function isValidUser(data) {
+      return data.uid is string && data.uid.size() <= 128 &&
+             data.email is string && data.email.size() <= 256 &&
+             data.role in ['admin', 'driver', 'ticketing_agent', 'travel_creator'] &&
+             (!('displayName' in data) || (data.displayName is string && data.displayName.size() <= 128)) &&
+             (!('photoURL' in data) || (data.photoURL is string && data.photoURL.size() <= 1024));
+    }
+
+    // Entity Validation: Travel
+    function isValidTravel(data) {
+      return data.id is string && isValidId(data.id) &&
+             data.name is string && data.name.size() > 0 && data.name.size() <= 128 &&
+             data.date is string && data.date.size() > 0 && data.date.size() <= 32 &&
+             data.origin is string && data.origin.size() > 0 && data.origin.size() <= 128 &&
+             data.destination is string && data.destination.size() > 0 && data.destination.size() <= 128 &&
+             data.viajesNumber is string && data.viajesNumber.size() > 0 && data.viajesNumber.size() <= 64 &&
+             data.capacity is number && data.capacity >= 1 && data.capacity <= 200 &&
+             (!('time' in data) || (data.time is string && data.time.size() <= 32)) &&
+             (!('status' in data) || (data.status in ['scheduled', 'in_progress', 'completed', 'cancelled'])) &&
+             (!('notes' in data) || (data.notes is string && data.notes.size() <= 1000));
+    }
+
+    // Entity Validation: Ticket
+    function isValidTicket(data) {
+      return data.id is string && isValidId(data.id) &&
+             data.tripId is string && isValidId(data.tripId) &&
+             data.firstName is string && data.firstName.size() > 0 && data.firstName.size() <= 128 &&
+             data.lastName is string && data.lastName.size() > 0 && data.lastName.size() <= 128 &&
+             data.destination is string && data.destination.size() > 0 && data.destination.size() <= 128 &&
+             data.seatNumber is number && data.seatNumber >= 1 && data.seatNumber <= 200 &&
+             data.status in ['pending', 'checked_in', 'cancelled'] &&
+             data.qrPayload is string && data.qrPayload.size() > 0 && data.qrPayload.size() <= 4096;
+    }
+
+    // Match /users/{userId}
+    match /users/{userId} {
+      allow get: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+      allow list: if isAdmin();
+      
+      // User can create their profile. Bootstrapped admin gets admin role; others can register role unless modified.
+      allow create: if isSignedIn() && isValidId(userId) && request.auth.uid == userId && isValidUser(incoming()) &&
+        (isBootstrappedAdmin() ? incoming().role == 'admin' : true);
+
+      // Only admins or the user themselves can update non-role fields; only admin can change role
+      allow update: if isSignedIn() && isValidId(userId) && isValidUser(incoming()) && (
+        isAdmin() ||
+        (request.auth.uid == userId && incoming().role == existing().role)
+      );
+
+      allow delete: if isAdmin();
+    }
+
+    // Match /trips/{tripId}
+    match /trips/{tripId} {
+      // Public read so passengers can book journeys; staff can view all
+      allow read: if true;
+      
+      // Only admin or travel_creator can create travels
+      allow create: if isSignedIn() && isValidId(tripId) && isTravelCreator() && isValidTravel(incoming());
+
+      // Only admin or travel_creator can update travels
+      allow update: if isSignedIn() && isValidId(tripId) && isTravelCreator() && isValidTravel(incoming());
+
+      // Only admin can delete travels
+      allow delete: if isAdmin();
+    }
+
+    // Match /tickets/{ticketId}
+    match /tickets/{ticketId} {
+      // Readable for optical QR validation and passenger confirmation
+      allow read: if true;
+
+      // Ticketing agents, admins, or clients completing booking can create tickets
+      allow create: if isValidId(ticketId) && isValidTicket(incoming());
+
+      // Ticketing agents/admins can update full details; drivers can toggle check-in status
+      allow update: if isValidId(ticketId) && isValidTicket(incoming()) && (
+        isTicketingAgent() ||
+        (isDriver() && incoming().diff(existing()).affectedKeys().hasOnly(['status', 'checkedInAt', 'checkedInBy', 'updatedAt']))
+      );
+
+      // Only admin or ticketing agent can delete/cancel a ticket
+      allow delete: if isTicketingAgent();
+    }
+
+    // Match /settings/{settingId}
+    match /settings/{settingId} {
+      // Public read so checkout can load publishable keys & seat routing
+      allow read: if true;
+
+      // Only admin can save or update Stripe configuration
+      allow write: if isAdmin();
+    }
+  }
+}
